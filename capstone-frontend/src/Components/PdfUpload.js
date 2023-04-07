@@ -1,28 +1,30 @@
-import React from 'react';
+import React from 'react'; 
+import axios from "axios"
 
 export default class PdfUpload extends React.Component {
-
 
     constructor(props){
         super(props);
 
         this.state = {
-
+            file:null
         }
     }
 
 
     handleUploadClick = (event) =>{
 
-        let file = event.target.files;
-        let text = event.target.result;
+        let _file = event.target.files[0];
+        this.setState({file:_file})
+    }
 
-        let reader = new FileReader();
+    uploadPdf = () => {
 
-        reader.onload = async(text) =>{
-            console.log(text.currentTarget.result)
-        }
-        reader.readAsText(file[0])
+        axios({
+            method:"post",
+            url:"http://localhost:5000/pdf-upload",//temp
+            data:{pdf:this.state.file}
+        })
     }
 
     render(){
@@ -40,10 +42,9 @@ export default class PdfUpload extends React.Component {
                         onChange={(event) => this.handleUploadClick(event)}
                     />
                 </form>
-            
+
+                <button Title="Submit" onClick={this.uploadPdf}>Upload</button>
            </div> 
         )
-
     }
-
 }
