@@ -23,7 +23,7 @@ export default class PdfUpload extends React.Component {
         axios({
             method:"post",
             url:"http://localhost:5000/pdf-upload",//temp
-            data:{pdf:this.state.file}
+            data:this.state.file
         })
     }
 
