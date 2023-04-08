@@ -1,5 +1,8 @@
 import React from 'react'; 
 import axios from "axios"
+import DroppableFile from './DroppableFile';
+import styles from "../css/pdfUpload.module.css"
+import config from "../config"
 
 export default class PdfUpload extends React.Component {
 
@@ -8,47 +11,35 @@ export default class PdfUpload extends React.Component {
         super(props);
 
         this.state = {
-            file:null
+            resetState:null,
         }
     }
 
-
-    handleUploadClick = (event) =>{
-
-        let _file = event.target.files[0];
-        this.setState({file:_file})
-    }
-
-    uploadPdf = (event) => {
-        
-        event.preventDefault();
-
-        const formData = new FormData();
-        formData.append('file', this.state.file);
+    uploadPdf = (file) => {
+    
+        if(file == null){
+            console.log("no file has been uploaded");
+            return;
+        }
         axios({
             method:"post",
-            url:"http://localhost:5000/pdf-upload",//temp
-            data:formData
+            url:`${config.API_KEY}/pdf-upload`,
+            data:file
+        }).then(response => {
+
         })
     }
 
     render(){
 
         return(
-           <div>
-                <p>{this.state.text}</p>
-
-                <form>
-                    <label for="myfile">Select a file:</label>
-                    <input
-                        type="file" 
-                        id="myfile" 
-                        name="myfile"
-                        onChange={(event) => this.handleUploadClick(event)}
+           <div className={styles.div}>
+            
+                <div className={styles.drop}>
+                    <DroppableFile 
+                        getData={(file) => this.uploadPdf(file)}
                     />
-                </form>
-
-                <button Title="Submit" onClick={(event) => this.uploadPdf(event)}>Upload</button>
+                </div>      
            </div> 
         )
     }

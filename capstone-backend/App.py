@@ -17,7 +17,7 @@ def upload():
         return 'No file selected', 400
     if file and allowed_file(file.filename):
         # Handle PDF file here
-        return 'PDF file uploaded successfully'
+        return 'PDF file uploaded successfully', 200
     else:
         return 'File upload failed', 400
 
