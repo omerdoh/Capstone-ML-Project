@@ -3,6 +3,7 @@ import axios from "axios"
 
 export default class PdfUpload extends React.Component {
 
+
     constructor(props){
         super(props);
 
@@ -18,12 +19,16 @@ export default class PdfUpload extends React.Component {
         this.setState({file:_file})
     }
 
-    uploadPdf = () => {
+    uploadPdf = (event) => {
+        
+        event.preventDefault();
 
+        const formData = new FormData();
+        formData.append('file', this.state.file);
         axios({
             method:"post",
             url:"http://localhost:5000/pdf-upload",//temp
-            data:this.state.file
+            data:formData
         })
     }
 
@@ -43,7 +48,7 @@ export default class PdfUpload extends React.Component {
                     />
                 </form>
 
-                <button Title="Submit" onClick={this.uploadPdf}>Upload</button>
+                <button Title="Submit" onClick={(event) => this.uploadPdf(event)}>Upload</button>
            </div> 
         )
     }
