@@ -11,7 +11,6 @@ export default class PdfUpload extends React.Component {
         super(props);
 
         this.state = {
-            resetState:null,
         }
     }
 
