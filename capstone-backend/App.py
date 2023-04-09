@@ -15,17 +15,19 @@ def upload():
     file = request.files['file']
     if file.filename == '':
         return 'No file selected', 400
-    if file and allowed_file(file.filename):
+    # if file and allowed_file(file.filename):
         # Handle PDF file here
+        # return 'PDF file uploaded successfully', 200
+
+    if file:
+        print(file.filename)
         return 'PDF file uploaded successfully', 200
     else:
         return 'File upload failed', 400
 
-def allowed_file(filename):
-    print(filename)
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
-# check it is pdf or not
-#
+# def allowed_file(filename):
+#     print(filename)
+#     return '.' in filename and filename.rsplit('.', 1)[1].lower() == 'pdf'
 
 @app.route('/', methods=['GET'])
 def index():

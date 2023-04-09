@@ -21,8 +21,8 @@ def upload_pdf():
           print (font.BaseFont)
 
     for pageIndex in range(len(pdf_file)):
-         page = pdf_file[pageIndex]
-         imageList = page.getImageList()
+        page = pdf_file[pageIndex]
+        imageList = page.getImageList()
 
         for image_index, img in enumerate(page.getImageList(), start=1):
                 xref = img[0]
