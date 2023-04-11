@@ -10,7 +10,6 @@ if %errorlevel% neq 0 (
 
 echo pip is now ready to use.
 
-
 echo Checking python librarie are available or not!
 REM Check if pandas, flask, and flask_cors are installed
 pip show pandas >nul 2>nul
