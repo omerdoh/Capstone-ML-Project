@@ -1,12 +1,33 @@
+import React from "react";
 import PdfUpload from "./Components/PdfUpload";
+import PdfViewer from "./Components/PdfViewer";
 
-function App() {
-  return (
-    <div className="App">
-      
-      <PdfUpload />
+export default class App extends React.Component{
 
-    </div>
-  );
+  constructor(){
+    super()
+    this.state = {
+      file:null
+    }
+  }
+
+  getFile = (fileblob) => {
+    
+    this.setState({
+      file:fileblob
+    })
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <div style={{ display: "flex", flexDirection:"column", backgroundColor:"blue"}}>
+          <PdfUpload callback={(fileblob) => this.getFile(fileblob)}/>
+        </div>
+        <div>
+          {(this.state.file) ? <PdfViewer pdf={this.state.file}/> : null} 
+        </div>
+      </div>
+    );
+  }
 }
-export default App;

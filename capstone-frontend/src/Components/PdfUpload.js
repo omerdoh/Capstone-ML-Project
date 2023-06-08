@@ -6,11 +6,11 @@ import config from "../config"
 
 export default class PdfUpload extends React.Component {
 
-
     constructor(props){
         super(props);
 
         this.state = {
+            callback:props.callback
         }
     }
 
@@ -23,9 +23,12 @@ export default class PdfUpload extends React.Component {
         axios({
             method:"post",
             url:`${config.API_KEY}/pdf-upload`,
+            responseType:'arraybuffer',
             data:file
         }).then(response => {
 
+            let blob = new Blob([response.data], {type:"application/pdf"})
+            this.state.callback(blob)    
         })
     }
 
