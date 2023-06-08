@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 # from flask_restful import Resource, Api, reqparse
 # import pandas as pd
@@ -20,8 +20,14 @@ def upload():
         # return 'PDF file uploaded successfully', 200
 
     if file:
-        print(file.filename)
-        return 'PDF file uploaded successfully', 200
+
+        #filepath = ".\capstone-backend\savedpdfs\\"
+
+        content = file.read() # reads the file as bytes
+        newFile = open(".\capstone-backend\savedpdfs\\"+file.filename, "wb")# creates a new binary file
+        newFile.write(content) # writes the content of the file to the new file
+        newFile.close() # closes the file0
+        return content , 200    
     else:
         return 'File upload failed', 400
 
