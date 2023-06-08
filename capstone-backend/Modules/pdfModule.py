@@ -15,7 +15,7 @@ def pdfModule(bytes):
                 index:1
                 aiResponse:{
                     reponse: 85%
-                    comment:""
+                    //comment:""
                 }
                 x:5,
                 y:y

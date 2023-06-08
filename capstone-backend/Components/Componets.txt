@@ -1,0 +1,12 @@
+
+1. checking if locked component
+
+2. breaking the pdfs apart
+
+3. check all the fonts in the pdf
+
+4. json creationg and formattion
+
+5. ai module components
+
+6. pdf creating/drawing or remapping based on the json created
