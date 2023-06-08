@@ -21,7 +21,7 @@ export default class App extends React.Component{
   render(){
     return (
       <div className="App">
-        <div style={{ display: "flex", flexDirection:"column", backgroundColor:"blue"}}>
+        <div style={{ display: "flex", flexDirection:"column"}}>
           <PdfUpload callback={(fileblob) => this.getFile(fileblob)}/>
         </div>
         <div>
