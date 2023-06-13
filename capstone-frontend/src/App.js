@@ -1,6 +1,8 @@
 import React from "react";
 import PdfUpload from "./Components/PdfUpload";
 import PdfViewer from "./Components/PdfViewer";
+import styles from "./css/app.module.css"
+
 
 export default class App extends React.Component{
 
@@ -21,13 +23,20 @@ export default class App extends React.Component{
   render(){
     return (
       <div className="App">
-        <div style={{ display: "flex", flexDirection:"column"}}>
-          <PdfUpload callback={(fileblob) => this.getFile(fileblob)}/>
+
+        <div className={styles.Container}>
+
+          <div className={styles.pdfViewer}>
+            {(this.state.file) ? <PdfViewer pdf={this.state.file} />: <div></div>}
+          </div>  
+
+          <div className={styles.pdfUpload}>
+            <PdfUpload callback={(fileblob) => this.getFile(fileblob)} />
+          </div>      
         </div>
-        <div>
-          {(this.state.file) ? <PdfViewer pdf={this.state.file}/> : null} 
-        </div>
-      </div>
+    </div>
     );
   }
 }
+
+//

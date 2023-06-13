@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_file
-from Components.PdfScrape import *
+#from Components.PdfScrape import *
 
 def pdf_routes(app):
 
@@ -17,7 +17,7 @@ def pdf_routes(app):
             newFile = open(".\capstone-backend\savedpdfs\\"+file.filename, "wb")# creates a new binary file
             newFile.write(content) # writes the content of the file to the new file
             newFile.close() # closes the file0
-            fianlProduct = test(content)
+            #fianlProduct = test(content)
             return content , 200    
         
             '''

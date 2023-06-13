@@ -34,15 +34,12 @@ export default class PdfUpload extends React.Component {
 
     render(){
 
-        return(
-           <div className={styles.div}>
-            
-                <div className={styles.drop}>
-                    <DroppableFile 
-                        getData={(file) => this.uploadPdf(file)}
-                    />
-                </div>      
-           </div> 
+        return(  
+            <div className={styles.drop}>
+                <DroppableFile 
+                    getData={(file) => this.uploadPdf(file)}
+                />
+            </div>      
         )
     }
 }

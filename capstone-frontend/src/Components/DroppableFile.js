@@ -102,7 +102,7 @@ export default class DroppableFile extends React.Component{
 
         return(
 
-            <div style={{fontFamily:"monospace", width:"15%"}}>
+            <div className={styles.DroppableComponent}>
 
                 <div className={styles.dropContainer}>
 

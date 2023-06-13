@@ -1,0 +1,21 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.Container{
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+}
+.pdfUpload{
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: red;
+}
+.pdfViewer{
+    flex:1;
+    background-color: blue;
+}

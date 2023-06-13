@@ -1,9 +1,14 @@
+.DroppableComponent{
+    font-family:monospace;
+    width:100%;
+}
 .dropContainer{
     height: 200px;
     color:rgb(37, 37, 37);
     background-color: rgba(224, 218, 218, 0.372);
     border-style: dashed;
     border-color: #949494;
+    width: 100%;
 }
 
 .drop{
