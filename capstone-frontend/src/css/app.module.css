@@ -13,9 +13,7 @@ html, body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: red;
 }
 .pdfViewer{
     flex:1;
-    background-color: blue;
 }

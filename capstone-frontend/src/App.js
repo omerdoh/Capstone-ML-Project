@@ -26,17 +26,16 @@ export default class App extends React.Component{
 
         <div className={styles.Container}>
 
-          <div className={styles.pdfViewer}>
+          {this.state.file && <div className={styles.pdfViewer}>
             {(this.state.file) ? <PdfViewer pdf={this.state.file} />: <div></div>}
-          </div>  
+          </div>}
 
           <div className={styles.pdfUpload}>
             <PdfUpload callback={(fileblob) => this.getFile(fileblob)} />
-          </div>      
+          </div>     
         </div>
-    </div>
+      </div>
     );
   }
 }
 
-//
