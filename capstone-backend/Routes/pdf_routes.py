@@ -14,7 +14,7 @@ def pdf_routes(app):
             return 'No file selected', 400
         if file:
             content = file.read() # reads the file as bytes
-            newFile = open(".\capstone-backend\savedpdfs\\"+file.filename, "wb")# creates a new binary file
+            newFile = open("..\capstone-backend\savedpdfs\\"+file.filename, "wb")# creates a new binary file
             newFile.write(content) # writes the content of the file to the new file
             newFile.close() # closes the file0
             #fianlProduct = test(content)
