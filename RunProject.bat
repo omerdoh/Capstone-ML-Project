@@ -34,7 +34,7 @@ cd .\capstone-backend
 
 echo ************           RUNNING PYTHON SERVER           ************
 REM Run your Python file
-start cmd /K "Python App.py"
+start cmd /K "Python Backend.py"
 
 REM Change directory to your React app
 cd ..\capstone-frontend  
