@@ -10,6 +10,17 @@ if %errorlevel% neq 0 (
 
 echo pip is now ready to use.
 
+@echo off
+
+REM Check if TensorFlow and other packages are already installed
+python -c "import tensorflow, cv2, matplotlib, google.protobuf" 2>nul
+if %errorlevel% equ 0 (
+    echo TensorFlow and other required packages are already installed.
+) else (
+    echo Installing TensorFlow and other required packages...
+    pip install tensorflow==2.8 opencv-python matplotlib protobuf==3.19.1
+)
+
 echo Checking python librarie are available or not!
 REM Check if pandas, flask, and flask_cors are installed
 pip show pandas >nul 2>nul
@@ -46,6 +57,9 @@ if %errorlevel% neq 0 (
   choco install nodejs-lts -y
   npm install
 )
+
+echo Installing react-scripts...
+npm install react-scripts
 
 echo ************           STARTING REACT PAGE           ************
 REM Build your React app
