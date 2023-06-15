@@ -14,9 +14,13 @@ export default class PdfUpload extends React.Component {
         }
     }
 
-    uploadPdf = (file) => {
+    uploadPdf = (files) => {
     
-        if(file == null){
+        console.log('====================================');
+        console.log("Upload pdf");
+        console.log('====================================');
+
+        if(files == null){
             console.log("no file has been uploaded");
             return;
         }
@@ -24,11 +28,30 @@ export default class PdfUpload extends React.Component {
             method:"post",
             url:`${config.API_KEY}/pdf-upload`,
             responseType:'arraybuffer',
-            data:file
+            data:files
         }).then(response => {
 
             let blob = new Blob([response.data], {type:"application/pdf"})
             this.state.callback(blob)    
+        })
+    }
+
+    uploadImgs = (images) => {
+
+        console.log('====================================');
+        console.log("Upload image");
+        console.log('====================================');
+        axios({
+            method:"post",
+            url:`${config.API_KEY}/img-upload`,
+            responseType:'arraybuffer',
+            data:images
+        }).then(response => {
+
+
+            console.log(response.data)
+            //let blob = new Blob([response.data], {type:"application/pdf"})
+            //this.state.callback(blob)    
         })
     }
 
@@ -37,7 +60,8 @@ export default class PdfUpload extends React.Component {
         return(  
             <div className={styles.drop}>
                 <DroppableFile 
-                    getData={(file) => this.uploadPdf(file)}
+                    getPdfs={(files) => this.uploadPdf(files)}
+                    getImgs={(images) => this.uploadImgs(images)}
                 />
             </div>      
         )

@@ -4,11 +4,11 @@ from flask import Flask, request, jsonify, send_file
 def pdf_routes(app):
 
     @app.route('/pdf-upload', methods=['POST'])
-    def upload():
+    def pdf_upload():
 
-        file = request.files['file']
+        file = request.files['files']
 
-        if 'file' not in request.files:
+        if 'files' not in request.files:
             return 'No file uploaded', 400
         if file.filename == '':
             return 'No file selected', 400

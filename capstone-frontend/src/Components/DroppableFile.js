@@ -9,7 +9,8 @@ export default class DroppableFile extends React.Component{
 
         this.state = {
             fileName:null,
-            file:null
+            files:[],
+            images:[]
         }
     }
 
@@ -54,48 +55,72 @@ export default class DroppableFile extends React.Component{
         e.preventDefault()
         e.stopPropagation()
 
-        if(e.dataTransfer.files && e.dataTransfer.files.length > 0){
-
-            this.setState({
-                fileName:e.dataTransfer.files[0].name,
-                file:e.dataTransfer.files[0]
-            }) 
-        }
+        this.handleFileType(e.dataTransfer.files)
     }
 
     handleClick = (e) => {
 
-        console.log(this.state);
-        if(!e.target.files[0]){
-            console.log("error uploading");
-            return;
-        }
-        this.setState({
-            fileName:e.target.files[0].name,
-            file:e.target.files[0]
-        })
+        this.handleFileType(e.target.files)
     }
 
-    uploadFile = () =>{
-        
-        if(this.state.file == null){
+    handleFileType = (files) => {
+
+        if(files && files.length > 0){//there are files
+
+            let filteredFiles = []
+            let filteredImages = []
+
+            for (let i = 0; i < files.length; i++) {
+            
+                switch(files[i].type){
+
+                    case "application/pdf":
+                        filteredFiles.push(files[i])
+                        break;
+                    case "image/jpeg":
+                    case "image/png":
+                        filteredImages.push(files[i])
+                        break;
+                    default:
+                        console.log("the file is not a pdf")          
+                        break;
+                }
+            }
+
+            this.setState({
+                files:filteredFiles,
+                images:filteredImages
+            })
+        }else{
             return;
         }
-        let formData = new FormData()
-        formData.append("file", this.state.file)
-        
-        this.props.getData(formData)
+    }
 
-        this.removeFile()
+    uploadFile = () => {//form data needed
+       
+        if(this.state.files && this.state.files.length > 0){
+
+            let formData = new FormData()
+            this.state.files.forEach(file => {
+                formData.append("files", file)
+            })
+            this.props.getPdfs(formData)
+        }
+        
+        if(this.state.images && this.state.images.length > 0){
+            let formData = new FormData()
+            this.state.images.forEach(image => {
+                formData.append("images", image)
+            })
+            this.props.getImgs(formData)
+        }
     }
     removeFile = () => {
 
-        if(this.state.fileName != null){
-            this.setState({
-                fileName:null,
-                file:null
-            })
-        }
+        this.setState({
+            files:null,
+            images:null
+        })
     }
 
     render(){

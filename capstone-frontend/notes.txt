@@ -1,2 +1,1 @@
-file checking
-min max and file type
+min max
