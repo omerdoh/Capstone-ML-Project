@@ -31,6 +31,7 @@ export default class PdfUpload extends React.Component {
             data:files
         }).then(response => {
 
+            console.log(response.data);
             let blob = new Blob([response.data], {type:"application/pdf"})
             this.state.callback(blob)    
         })
@@ -49,7 +50,7 @@ export default class PdfUpload extends React.Component {
         }).then(response => {
 
 
-            console.log(response.data)
+            console.log(response)
             //let blob = new Blob([response.data], {type:"application/pdf"})
             //this.state.callback(blob)    
         })

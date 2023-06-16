@@ -1,5 +1,5 @@
 html, body {
-    height: 100%;
+    height: 98%;
     margin: 0;
 }
 
@@ -16,4 +16,14 @@ html, body {
 }
 .pdfViewer{
     flex:1;
+    padding-top: 62px;
+}
+.header{
+
+    border-bottom: solid;
+    border-color: #000000;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border-width: 2px;
+    padding: 0.5%;
 }

@@ -1,6 +1,4 @@
 import React from 'react'; 
-import '@react-pdf-viewer/core/lib/styles/index.css';
-
 
 export default class PdfViewer extends React.Component{
 
@@ -19,9 +17,13 @@ export default class PdfViewer extends React.Component{
     render(){
         console.log(this.state)
         return(
-            <div style={{ flexDirection: 'column', height: '100vh', width:"100%" }}>
+            <div style={{position: "relative", flexDirection: 'column', height: '100%', width:"100%" }}>
                 {(this.state.pdf) ? 
-                    <iframe title="title" src={URL.createObjectURL(this.state.pdf)} width="100%" height="100%"></iframe>
+                    <iframe 
+                        title="title" 
+                        src={URL.createObjectURL(this.state.pdf)} 
+                        style={{width:"100%", height:"98%"}}>
+                    </iframe>
                 : null}
             </div>
         )

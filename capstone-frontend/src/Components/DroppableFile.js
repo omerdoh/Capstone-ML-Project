@@ -55,15 +55,17 @@ export default class DroppableFile extends React.Component{
         e.preventDefault()
         e.stopPropagation()
 
+        this.removeFile()
         this.handleFileType(e.dataTransfer.files)
     }
 
     handleClick = (e) => {
 
+        this.removeFile()
         this.handleFileType(e.target.files)
     }
 
-    handleFileType = (files) => {
+    handleFileType = (files) => {//after uploading a file the file with not change with a different file
 
         if(files && files.length > 0){//there are files
 
@@ -75,6 +77,7 @@ export default class DroppableFile extends React.Component{
                 switch(files[i].type){
 
                     case "application/pdf":
+                        console.log("file")
                         filteredFiles.push(files[i])
                         break;
                     case "image/jpeg":
@@ -92,6 +95,7 @@ export default class DroppableFile extends React.Component{
                 images:filteredImages
             })
         }else{
+            console.log("No File");
             return;
         }
     }
