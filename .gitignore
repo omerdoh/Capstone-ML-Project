@@ -12,7 +12,7 @@
 */build
 
 # ai files
-*/capstone-backend/ai-model/data/*
+capstone-backend/ai-model/data/*
 
 # misc
 */.DS_Store
