@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_file
+from Modules.pdfModule import pdfModule
 #from Components.PdfScrape import *
 
 def pdf_routes(app):
@@ -16,6 +17,10 @@ def pdf_routes(app):
             return 'No file selected', 400
         if file:
             content = file.read() # reads the file as bytes
+
+            pdfModule(content)
+
+
 
             #---------------------Saving files not currently working with the changed to the pdf and image uploading----------------
 
