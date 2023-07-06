@@ -1,4 +1,6 @@
 from Components.pdfComponent.pdfProccesor import pdfProccesor
+import json
+from pdfrw import PdfWriter
 
 def pdfModule(bytes):
 
@@ -36,7 +38,24 @@ def pdfModule(bytes):
     # step 3: call the model to verify images and logos write to json - kelsey
     # step 4: calcuate average acc per image - computer
     # step 5: reconstruct the pdf based on the json file -shivam
+    reconstructPdf(pdf_bytes, imageJson)
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
     return pdf_bytes
 
+def reconstructPdf(bytes, jsonData):
+    try:
+        data = json.loads(jsonData)
+        image = data['image']
+        aiResponse = data['aiResponse']
+        page = data['page']
+        index = data['index']
+    except Exception as e:
+        print("Invalidation inside JSON data")
 
+    try:
+        with PdfWriter("AIResponse.pdf") as pdf:
+            # Need to design proper PDF below
+            for img in image:
+                pdf.save(img)
+    except Exception as e:
+        print("PDF generation FAILED")
