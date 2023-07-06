@@ -12,9 +12,10 @@ model = load_model("capstone-backend/ai-model/imageclassifier.h5")
 
 #function that loads the model and calculates the weight from the model
 #img is an encoded base64 string
-#returns a value between 0 and 1
+#returns an array with the weight and boolean 
 #In current model, less than 0.5 means happy, greater than 0.5 means sad
 def returnImageWeight(img):
+    response = []
     if (img is None):
         raise ValueError("No or empty image was passed")
 
@@ -22,7 +23,12 @@ def returnImageWeight(img):
     resize = tf.image.resize(image,(256,256))
     weightArray = model.predict(np.expand_dims(resize/255,0))
     weight=weightArray[0][0]
-    return weight
+    #return array with weight and response
+    if(weight < 0.5):
+        response = [weight,True]
+    else:
+        response =[weight,False]
+    return response
 
 #img = cv2.imread("capstone-backend/ai-model/testImages/sadimage3.jpg")
 """"
