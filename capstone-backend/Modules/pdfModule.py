@@ -1,9 +1,5 @@
 from Components.pdfComponent.pdfProccesor import pdfProccesor
-import json
-<<<<<<< HEAD
-from pdfrw import PdfWriter
-=======
->>>>>>> 35618eac59c158deb586ebfc1b57d71e1884dc86
+from Components.pdfComponent.reconstructPdf import reconstructPdf
 
 def pdfModule(bytes):
 
@@ -15,18 +11,7 @@ def pdfModule(bytes):
 
     # step 2: breaking pdfs apart and saving imgs and logos - Moses
 
-    jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images
-
-    with open("C:\\Users\\asdfg\\Desktop\\Capstone-ML-Project\\capstone-backend\\Components\\pdfComponent\\test.json", "w") as file:
-         file.write(json.dumps(jsons["textJson"]))
-
-
-    
-
-    print(jsons["imageJson"][0])
-
-    print(jsons["textJson"][0])
-
+    jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images    
 
     #Example json testjson.json
 
@@ -54,24 +39,6 @@ def pdfModule(bytes):
     # step 4: calcuate average acc per image - computer
     # what images need to be drawn on
     # step 5: reconstruct the pdf based on the json file -shivam
-    reconstructPdf(pdf_bytes, imageJson)
+    reconstructPdf(pdf_bytes, jsons["imageJson"])
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
     return pdf_bytes
-
-def reconstructPdf(bytes, jsonData):
-    try:
-        data = json.loads(jsonData)
-        image = data['image']
-        aiResponse = data['aiResponse']
-        page = data['page']
-        index = data['index']
-    except Exception as e:
-        print("Invalidation inside JSON data")
-
-    try:
-        with PdfWriter("AIResponse.pdf") as pdf:
-            # Need to design proper PDF below
-            for img in image:
-                pdf.save(img)
-    except Exception as e:
-        print("PDF generation FAILED")
