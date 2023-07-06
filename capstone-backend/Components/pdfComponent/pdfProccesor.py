@@ -1,17 +1,15 @@
-from fpdf import FPDF
 from io import BytesIO
 import os
 import json
 import fitz
 import base64
-from PyPDF2 import PdfReader, PdfFileWriter
 
 def pdfProccesor(pdf_bytes):
 
     _pdf = fitz.open("pdf", BytesIO(pdf_bytes)) #this converts the bytes to a temp file that can then edited by the library
     return getImgData(_pdf)
     
-def getImgData(pdf): #this gets the transform of the image the acutal image as well as the page number and index of the image
+def getImgData(pdf): #this gets the transform of the image the actual image as well as the page number and index of the image
 
     pageImgBlock = []
     jsonArray = []

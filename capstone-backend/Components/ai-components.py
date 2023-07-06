@@ -4,36 +4,40 @@ import tensorflow as tf
 import numpy as np
 import cv2
 from tensorflow.python.keras.models import load_model
+import base64
+
 
 #load the model
 model = load_model("capstone-backend/ai-model/imageclassifier.h5")
 
 #function that loads the model and calculates the weight from the model
-#img is a cv2.imread('myimage.png') object
-#returns a 0 to 1 float
+#img is an encoded base64 string
+#returns a value between 0 and 1
 #In current model, less than 0.5 means happy, greater than 0.5 means sad
 def returnImageWeight(img):
-    resize = tf.image.resize(img,(256,256))
+    if (img is None):
+        raise ValueError("No or empty image was passed")
+
+    image = cv2.imdecode(np.frombuffer(base64.b64decode(img),dtype=np.uint8),cv2.IMREAD_COLOR)
+    resize = tf.image.resize(image,(256,256))
     weightArray = model.predict(np.expand_dims(resize/255,0))
     weight=weightArray[0][0]
     return weight
 
-#From original training set
-#img1 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage1.jpg"))
-#img2 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage2.jpg"))
-#img3 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage1.jpg"))
-#img4 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage2.jpg"))
+#img = cv2.imread("capstone-backend/ai-model/testImages/sadimage3.jpg")
+""""
+TEST IMAGE
+img = "iVBORw0KGgoAAAANSUhEUgAAAdUAAAAICAYAAACvbmWyAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACjElEQVR4nO3Z11JUQRSF4fM65izmHDALDMmcYEgDQxbJSJYsGXPChDmgPhxWqVU6ylpH9q52To998T1AX/3Va3tTn7PnFuyLZSRv/GHSmCyZT9iEKbPY+Gym3Eczxj5IZVCj780YeZcuMvxW4U0Ius685oaYV2nQ4Eu5gRep2AzWP5MC9T338QzrZZ4ep3qeYNceH4O6memjVNcjrPPhEewB13H/MNR+D2u7ewhqvcNdvX0Qu4W13DwANd/gmqaSY3guKC4o8QqKNCZBDAqNiQuKb1BYTGwLCotJogflV42TWMPEfqp+HKsb2wfVju7FRria4T3YEFY9uDuGJw2KKiqBCwqPivuhKKMSsKCooiINiiIqLCiaqIiDoogKC4omKtKgaKLCgqKJCguKqajQoCwwKjEGdkFV/Vxl306oohcr79kBlXVvp0q7sGjnNqik4yfPBcVNXrYGhcbEsqCwmNgWFBYTTVBYTIwFhcTEBeXPoPyuuH0rFWnbAhW1YoUtm6mC5k1QfhOW17gRCjdsoHLrv/NcUFxQ/segsJjYFhQaE8uCwmJiKigsJrYFhcXkXwRlXnVJUE4tdvHKeq4Gu3B5HXS+ei11roqoXAOdrVj9jWdjUNzkFcwfipu8/IOiiYo0KJqosKBooiINiiYqLCiaqEiDoooKCYomKjQofxmV+Zwpx06X+ShdBZ2KYiejK6ETJVx28QosgmVFls95LijBDkpcJq8EuqGYCgqLiW1BYTGxLSgsJqqgkJgYCwqJSVCDAhVxmYXLRDIKuHQmHwvlLRXzXFASNyjxuKGYCko8biimgsJiYltQWExsCwqNiWVBoTExGJRQGEsLL8FysVQ/OYuhFKlLfhZBXwHtjJHMz1/pjwAAAABJRU5ErkJggg=="
+if(img is None):
+    print("Failed to load image")
+else:
+    #encoded = base64.b64encode(img)
+    #.decode('utf-8')
+    print(returnImageWeight(img))
 
-#print(img1) #returns 0.35
-#print(img2) #returns 0.029
-#print(img3) #returns 0.99
-#print(img4) #returns 0.99
+"""
+#decode to send to AI component
 
-#Pulled off the internet 2023/06/15
-#img5 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage3.jpg"))
-#img6 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage3.png"))
-#img7 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage4.jpg"))
 
-#print(img5) # returns 0.99 
-#print(img6) # returns 1.0 this is wrong
-#print(img7) # returns 0.99 this is also wrong
+
+
