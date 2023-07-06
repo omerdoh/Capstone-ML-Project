@@ -1,6 +1,9 @@
 from Components.pdfComponent.pdfProccesor import pdfProccesor
 import json
+<<<<<<< HEAD
 from pdfrw import PdfWriter
+=======
+>>>>>>> 35618eac59c158deb586ebfc1b57d71e1884dc86
 
 def pdfModule(bytes):
 
@@ -12,7 +15,19 @@ def pdfModule(bytes):
 
     # step 2: breaking pdfs apart and saving imgs and logos - Moses
 
-    imageJson = pdfProccesor(pdf_bytes)# this returns a json of all the images
+    jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images
+
+    with open("C:\\Users\\asdfg\\Desktop\\Capstone-ML-Project\\capstone-backend\\Components\\pdfComponent\\test.json", "w") as file:
+         file.write(json.dumps(jsons["textJson"]))
+
+
+    
+
+    print(jsons["imageJson"][0])
+
+    print(jsons["textJson"][0])
+
+
     #Example json testjson.json
 
         # step 2.1: make an array of images
@@ -37,6 +52,7 @@ def pdfModule(bytes):
     '''
     # step 3: call the model to verify images and logos write to json - kelsey
     # step 4: calcuate average acc per image - computer
+    # what images need to be drawn on
     # step 5: reconstruct the pdf based on the json file -shivam
     reconstructPdf(pdf_bytes, imageJson)
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
