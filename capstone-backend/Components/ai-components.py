@@ -6,14 +6,13 @@ import cv2
 from tensorflow.python.keras.models import load_model
 import base64
 
-
 #load the model
 model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
 
 #function that loads the model and calculates the weight from the model
 #img is an encoded base64 string
 #returns an array with the weight and boolean 
-#In current model, less than 0.5 means happy, greater than 0.5 means sad
+#In current model, less than 0.5 means off brand, greater than 0.5 means on brand
 def returnImageWeight(img):
     response = []
     if (img is None):
@@ -24,26 +23,11 @@ def returnImageWeight(img):
     weightArray = model.predict(np.expand_dims(resize/255,0))
     weight=weightArray[0][0]
     #return array with weight and response
-    if(weight < 0.5):
+    if(weight > 0.5):
         response = [weight,True]
     else:
         response =[weight,False]
     return response
-
-#img = cv2.imread("capstone-backend/ai-model/testImages/sadimage3.jpg")
-""""
-TEST IMAGE
-img = "iVBORw0KGgoAAAANSUhEUgAAAdUAAAAICAYAAACvbmWyAAAACXBIWXMAAA7EAAAOxAGVKw4bAAACjElEQVR4nO3Z11JUQRSF4fM65izmHDALDMmcYEgDQxbJSJYsGXPChDmgPhxWqVU6ylpH9q52To998T1AX/3Va3tTn7PnFuyLZSRv/GHSmCyZT9iEKbPY+Gym3Eczxj5IZVCj780YeZcuMvxW4U0Ius685oaYV2nQ4Eu5gRep2AzWP5MC9T338QzrZZ4ep3qeYNceH4O6memjVNcjrPPhEewB13H/MNR+D2u7ewhqvcNdvX0Qu4W13DwANd/gmqaSY3guKC4o8QqKNCZBDAqNiQuKb1BYTGwLCotJogflV42TWMPEfqp+HKsb2wfVju7FRria4T3YEFY9uDuGJw2KKiqBCwqPivuhKKMSsKCooiINiiIqLCiaqIiDoogKC4omKtKgaKLCgqKJCguKqajQoCwwKjEGdkFV/Vxl306oohcr79kBlXVvp0q7sGjnNqik4yfPBcVNXrYGhcbEsqCwmNgWFBYTTVBYTIwFhcTEBeXPoPyuuH0rFWnbAhW1YoUtm6mC5k1QfhOW17gRCjdsoHLrv/NcUFxQ/segsJjYFhQaE8uCwmJiKigsJrYFhcXkXwRlXnVJUE4tdvHKeq4Gu3B5HXS+ei11roqoXAOdrVj9jWdjUNzkFcwfipu8/IOiiYo0KJqosKBooiINiiYqLCiaqEiDoooKCYomKjQofxmV+Zwpx06X+ShdBZ2KYiejK6ETJVx28QosgmVFls95LijBDkpcJq8EuqGYCgqLiW1BYTGxLSgsJqqgkJgYCwqJSVCDAhVxmYXLRDIKuHQmHwvlLRXzXFASNyjxuKGYCko8biimgsJiYltQWExsCwqNiWVBoTExGJRQGEsLL8FysVQ/OYuhFKlLfhZBXwHtjJHMz1/pjwAAAABJRU5ErkJggg=="
-if(img is None):
-    print("Failed to load image")
-else:
-    #encoded = base64.b64encode(img)
-    #.decode('utf-8')
-    print(returnImageWeight(img))
-
-"""
-#decode to send to AI component
-
 
 
 
