@@ -8,7 +8,7 @@ import base64
 
 
 #load the model
-model = load_model("capstone-backend/ai-model/imageclassifier.h5")
+model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
 
 #function that loads the model and calculates the weight from the model
 #img is an encoded base64 string
