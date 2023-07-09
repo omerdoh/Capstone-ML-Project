@@ -1,6 +1,4 @@
 
-
-
 '''
 natdyl <3 forever 
 step 1: veify size = size matching

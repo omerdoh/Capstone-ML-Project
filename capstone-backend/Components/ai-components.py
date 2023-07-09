@@ -7,12 +7,15 @@ from tensorflow.python.keras.models import load_model
 import base64
 
 #load the model
-model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
+#model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
+detectionModel = load_model("capstone-backend\ai-model\models\detectImagePeopleModel_V1.h5")
+logoModel = load_model("capstone-backend\ai-model\models\logoModel_V1.h5")
+peopleModel = load_model("capstone-backend\ai-model\models\peopleModel_V1.h5")
 
 #function that loads the model and calculates the weight from the model
 #img is an encoded base64 string
 #returns an array with the weight and boolean 
-#In current model, less than 0.5 means off brand, greater than 0.5 means on brand
+#in current model, less than 0.5 means off brand, greater than 0.5 means on brand
 def returnImageWeight(img):
     response = []
     if (img is None):
@@ -20,14 +23,34 @@ def returnImageWeight(img):
 
     image = cv2.imdecode(np.frombuffer(base64.b64decode(img),dtype=np.uint8),cv2.IMREAD_COLOR)
     resize = tf.image.resize(image,(256,256))
-    weightArray = model.predict(np.expand_dims(resize/255,0))
+    type = _detectImageType(resize)
+    
+    if (type is True):
+        weightArray = logoModel.predict(np.expand_dims(img/255,0))
+    else:
+        weightArray = peopleModel.predict(np.expand_dims(img/255,0))
+
     weight=weightArray[0][0]
     #return array with weight and response
     if(weight > 0.5):
         response = [weight,True]
     else:
-        response =[weight,False]
+        response = [weight,False]
     return response
+
+#detect if image is of logos or people
+def _detectImageType(img):
+    weightArray = detectionModel.predict(np.expand_dims(img/255,0))
+    type = weightArray[0][0]
+
+    #Logo is < 0.5, people is > 0.5
+    if(type < 0.5): 
+        #it is a logo
+        return True
+    else:
+        #it is a person
+        return False
+
 
 
 
