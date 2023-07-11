@@ -4,36 +4,53 @@ import tensorflow as tf
 import numpy as np
 import cv2
 from tensorflow.python.keras.models import load_model
+import base64
 
 #load the model
-model = load_model("capstone-backend/ai-model/imageclassifier.h5")
+#model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
+detectionModel = load_model("capstone-backend\ai-model\models\detectImagePeopleModel_V1.h5")
+logoModel = load_model("capstone-backend\ai-model\models\logoModel_V1.h5")
+peopleModel = load_model("capstone-backend\ai-model\models\peopleModel_V1.h5")
 
 #function that loads the model and calculates the weight from the model
-#img is a cv2.imread('myimage.png') object
-#returns a 0 to 1 float
-#In current model, less than 0.5 means happy, greater than 0.5 means sad
+#img is an encoded base64 string
+#returns an array with the weight and boolean 
+#in current model, less than 0.5 means off brand, greater than 0.5 means on brand
 def returnImageWeight(img):
-    resize = tf.image.resize(img,(256,256))
-    weightArray = model.predict(np.expand_dims(resize/255,0))
+    response = []
+    if (img is None):
+        raise ValueError("No or empty image was passed")
+
+    image = cv2.imdecode(np.frombuffer(base64.b64decode(img),dtype=np.uint8),cv2.IMREAD_COLOR)
+    resize = tf.image.resize(image,(256,256))
+    type = _detectImageType(resize)
+    
+    if (type is True):
+        weightArray = logoModel.predict(np.expand_dims(img/255,0))
+    else:
+        weightArray = peopleModel.predict(np.expand_dims(img/255,0))
+
     weight=weightArray[0][0]
-    return weight
+    #return array with weight and response
+    if(weight > 0.5):
+        response = [weight,True]
+    else:
+        response = [weight,False]
+    return response
 
-#From original training set
-#img1 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage1.jpg"))
-#img2 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage2.jpg"))
-#img3 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage1.jpg"))
-#img4 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage2.jpg"))
+#detect if image is of logos or people
+def _detectImageType(img):
+    weightArray = detectionModel.predict(np.expand_dims(img/255,0))
+    type = weightArray[0][0]
 
-#print(img1) #returns 0.35
-#print(img2) #returns 0.029
-#print(img3) #returns 0.99
-#print(img4) #returns 0.99
+    #Logo is < 0.5, people is > 0.5
+    if(type < 0.5): 
+        #it is a logo
+        return True
+    else:
+        #it is a person
+        return False
 
-#Pulled off the internet 2023/06/15
-#img5 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/sadimage3.jpg"))
-#img6 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage3.png"))
-#img7 = returnImageWeight(cv2.imread("capstone-backend/ai-model/testImages/happyimage4.jpg"))
 
-#print(img5) # returns 0.99 
-#print(img6) # returns 1.0 this is wrong
-#print(img7) # returns 0.99 this is also wrong
+
+

@@ -1,5 +1,5 @@
 from Components.pdfComponent.pdfProccesor import pdfProccesor
-import json
+from Components.pdfComponent.reconstructPdf import reconstructPdf
 
 def pdfModule(bytes):
 
@@ -12,9 +12,6 @@ def pdfModule(bytes):
     # step 2: breaking pdfs apart and saving imgs and logos - Moses
 
     jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images
-
-
-
 
     #Example json testjson.json
 
@@ -42,7 +39,6 @@ def pdfModule(bytes):
     # step 4: calcuate average acc per image - computer
     # what images need to be drawn on
     # step 5: reconstruct the pdf based on the json file -shivam
+    reconstructPdf(pdf_bytes, jsons["imageJson"])
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
     return pdf_bytes
-
-

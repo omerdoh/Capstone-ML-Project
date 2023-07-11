@@ -38,6 +38,10 @@ if %errorlevel% neq 0 (
   echo flask_cors is not installed. Installing now...
   pip install flask_cors
 )
+
+pip install fitz
+pip install frontend
+pip install PyMuPdf
 echo python libraries are ready to use.
 
 REM Change directory back to the root directory

@@ -12,7 +12,7 @@ def pdfProccesor(pdf_bytes):
     textJson = checkTextAllowed(pdf)
     return {"imageJson":imageJson, "textJson": textJson}
     
-def getImgData(pdf): #this gets the transform of the image the acutal image as well as the page number and index of the image
+def getImgData(pdf): #this gets the transform of the image the actual image as well as the page number and index of the image
 
     pageImgBlock = []
     jsonArray = []

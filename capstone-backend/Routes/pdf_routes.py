@@ -20,8 +20,6 @@ def pdf_routes(app):
 
             pdfModule(content)
 
-
-
             #---------------------Saving files not currently working with the changed to the pdf and image uploading----------------
 
             #newFile = open("..\capstone-backend\savedpdfs\\"+file.filename, "wb")# creates a new binary file
