@@ -1,6 +1,6 @@
 //https://medium.com/@650egor/simple-drag-and-drop-file-upload-in-react-2cb409d88929
 import React from "react"
-import styles from "../css/droppable.module.css"
+import "../css/droppable.css"
 
 export default class DroppableFile extends React.Component{
 
@@ -77,7 +77,6 @@ export default class DroppableFile extends React.Component{
                 switch(files[i].type){
 
                     case "application/pdf":
-                        console.log("file")
                         filteredFiles.push(files[i])
                         break;
                     case "image/jpeg":
@@ -85,7 +84,7 @@ export default class DroppableFile extends React.Component{
                         filteredImages.push(files[i])
                         break;
                     default:
-                        console.log("the file is not a pdf")          
+                        console.log("the file is not a pdf or image")          
                         break;
                 }
             }
@@ -131,29 +130,29 @@ export default class DroppableFile extends React.Component{
 
         return(
 
-            <div className={styles.DroppableComponent}>
+            <div className="DroppableComponent">
 
-                <div className={styles.dropContainer}>
+                <div className="dropContainer">
 
-                    <div className={styles.drop} ref={this.drop}>
+                    <div className="drop" ref={this.drop}>
                         {this.props.children}
                         Click&nbsp; 
-                        <label htmlFor="file-input" className={styles.uploadText}>Upload</label>
+                        <label htmlFor="file-input" className="uploadText">Upload</label>
                         <input type="file" id="file-input" onClick={(e) => { e.target.value = null }} onChange={(e) => this.handleClick(e)} style={{ display: "none" }} />
                         &nbsp;or Drag and Drop file                      
                     </div>
 
-                    <div className={styles.fileText}>
+                    <div className="fileText">
                        {this.state.fileName == null ? "No File Selected" : this.state.fileName}
 
-                       <div className={styles.removeFile}>
+                       <div className="removeFile">
 
-                            <label htmlFor="file-remove" className={styles.uploadText}>X</label>
+                            {/* <label htmlFor="file-remove" className="uploadText">X</label> */}
                             <input type="button" id="file-remove" onClick={this.removeFile} style={{ display: "none" }}/>
                         </div>
                     </div>      
                 </div>
-                <div className={styles.button}>
+                <div className="button">
                     <button onClick={() => this.uploadFile()}>Upload Pdf</button>
                 </div> 
             </div>

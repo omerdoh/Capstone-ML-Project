@@ -44,7 +44,6 @@ def checkTextAllowed(pdf):
     pageTextBlocks = []
     jsonArray = []
     
-
     for page in pdf:
         d = page.get_text("dict")
         blocks = d["blocks"]

@@ -16,10 +16,6 @@ export default class PdfUpload extends React.Component {
 
     uploadPdf = (files) => {
     
-        console.log('====================================');
-        console.log("Upload pdf");
-        console.log('====================================');
-
         if(files == null){
             console.log("no file has been uploaded");
             return;
@@ -30,7 +26,7 @@ export default class PdfUpload extends React.Component {
             responseType:'arraybuffer',
             data:files
         }).then(response => {
-
+            console.log(response)
             console.log(response.data);
             let blob = new Blob([response.data], {type:"application/pdf"})
             this.state.callback(blob)    
@@ -39,9 +35,8 @@ export default class PdfUpload extends React.Component {
 
     uploadImgs = (images) => {
 
-        console.log('====================================');
-        console.log("Upload image");
-        console.log('====================================');
+        console.log(images)
+
         axios({
             method:"post",
             url:`${config.API_KEY}/img-upload`,

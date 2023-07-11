@@ -1,0 +1,7 @@
+body{
+    flex:1;
+    margin: 0;
+}
+.App{
+    background-color: #006341;
+}

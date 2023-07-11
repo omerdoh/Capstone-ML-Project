@@ -13,15 +13,7 @@ def pdfModule(bytes):
 
     jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images
 
-    with open("C:\\Users\\asdfg\\Desktop\\Capstone-ML-Project\\capstone-backend\\Components\\pdfComponent\\test.json", "w") as file:
-         file.write(json.dumps(jsons["textJson"]))
 
-
-    
-
-    print(jsons["imageJson"][0])
-
-    print(jsons["textJson"][0])
 
 
     #Example json testjson.json

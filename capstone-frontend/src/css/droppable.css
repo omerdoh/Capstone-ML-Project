@@ -1,27 +1,32 @@
 .DroppableComponent{
-    font-family:Gotham;
+    font-family:Gotham-Book;
     width:100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 .dropContainer{
-    height: 200px;
     color:rgb(37, 37, 37);
-    background-color: rgba(224, 218, 218, 0.372);
+    background-color: rgba(224, 218, 218, 0.576);
     border-style: dashed;
     border-color: #949494;
     width: 100%;
+    color: rgb(255, 255, 255);
+    height: calc(1rem * 17);
+    width: calc(1rem * 19);
 }
-
 .drop{
-    height: 180px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto;
+    height: calc(1rem * 15.5);
+    width: calc(1rem * 19);
 }
 .fileText{
-    height: 17px;
-    padding-left: 1%;
+    display: flex;
+    align-items: center;
     border-top: 1px dashed rgb(135, 129, 129);
+    height: 1.5rem;
 }
 
 .removeFile{
@@ -34,12 +39,12 @@
 }
 .uploadText{
     cursor: pointer;
+
 }
 .uploadText:hover {
     color: #bebebe;
 }
 .button{
     display: flex;
-    justify-content: center;
     padding-top: 5px;
 }

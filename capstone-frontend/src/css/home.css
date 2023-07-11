@@ -1,0 +1,15 @@
+.Container{
+    display: grid;
+    grid-template-columns: auto auto;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 50vw;
+}

@@ -1,0 +1,37 @@
+@font-face {
+  font-family: 'Gotham';
+  src: url('../../fonts/Gotham-Black.otf') format('truetype');
+  /* Add additional src lines for different font file formats */
+}
+
+body {
+  overflow: hidden;
+}
+.header {
+
+  display: flex;
+
+  background-color: #003328;
+  color: white;
+
+  padding: 20px;
+}
+
+.hamburger-button {
+
+  border: none;
+  background: none;
+  color: white;
+  font-size: 2rem;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.image{
+  max-height: 50px;
+  margin-left: calc(50% - 11rem);
+
+}
