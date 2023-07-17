@@ -5,30 +5,39 @@ import numpy as np
 import cv2
 from tensorflow.python.keras.models import load_model
 import base64
+import json
 
 #load the model
 #model = load_model("capstone-backend\ai-model\models\algonquinModel_1.h5")
-detectionModel = load_model("capstone-backend\ai-model\models\detectImagePeopleModel_V1.h5")
-logoModel = load_model("capstone-backend\ai-model\models\logoModel_V1.h5")
-peopleModel = load_model("capstone-backend\ai-model\models\peopleModel_V1.h5")
+detectionModel = load_model("capstone-backend/ai-model/models/detectImagePeopleModel_V1.h5")
+logoModel = load_model("capstone-backend/ai-model/models/logoModel_V1.h5")
+peopleModel = load_model("capstone-backend/ai-model/models/peopleModel_V1.h5")
 
 #function that loads the model and calculates the weight from the model
+#jsonDoc is a json object
 #img is an encoded base64 string
 #returns an array with the weight and boolean 
 #in current model, less than 0.5 means off brand, greater than 0.5 means on brand
-def returnImageWeight(img):
+def returnImageWeight(jsonDoc):
     response = []
-    if (img is None):
-        raise ValueError("No or empty image was passed")
+    if(jsonDoc is None):
+        raise ValueError("No jsonDoc was passed")
+    img = None
+    parseJson = json.loads(jsonDoc)
+    for index in parseJson:
 
-    image = cv2.imdecode(np.frombuffer(base64.b64decode(img),dtype=np.uint8),cv2.IMREAD_COLOR)
-    resize = tf.image.resize(image,(256,256))
-    type = _detectImageType(resize)
-    
-    if (type is True):
-        weightArray = logoModel.predict(np.expand_dims(img/255,0))
-    else:
-        weightArray = peopleModel.predict(np.expand_dims(img/255,0))
+        img = index["image"]
+        if (img is None):
+            raise ValueError("No or empty image was passed")
+        
+        resize = _decodeResize(img)
+        type = _detectImageType(resize)
+
+        if (type is True):
+            weightArray = logoModel.predict(np.expand_dims(img/255,0))
+        else:
+            weightArray = peopleModel.predict(np.expand_dims(img/255,0))
+        
 
     weight=weightArray[0][0]
     #return array with weight and response
@@ -51,6 +60,20 @@ def _detectImageType(img):
         #it is a person
         return False
 
+def _decodeResize(img):
+    img = cv2.imdecode(np.frombuffer(base64.b64decode(img),dtype=np.uint8),cv2.IMREAD_COLOR)
+    resize = tf.image.resize(img,(256,256))
+    return resize
 
-
-
+"""
+f = open('capstone-backend/Components/pdfComponent/testjson.json')
+myJson = json.load(f)
+for brand in myJson:
+    img = brand["image"]
+    resize = _decodeResize(img)
+    type = _detectImageType(resize)
+    #type is logo or people
+    #send to which model
+    #response[weight,true/false]
+    #add to myJson
+"""
