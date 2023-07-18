@@ -56,13 +56,11 @@ def _detectImageType(img):
     weightArray = detectionModel.predict(np.expand_dims(img/255,0))
     type = weightArray[0][0]
 
-    #Logo is < 0.5, people is > 0.5
+    #Logo is < 0.5, People is > 0.5
     if(type < 0.5): 
-        #it is a logo
-        return True
+        return 'logo'
     else:
-        #it is a person
-        return False
+        return 'people'
 
 #Converts the base64 image into cv2 format and resizes the image for the AI
 def _decodeResize(img):
