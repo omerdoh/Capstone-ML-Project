@@ -33,7 +33,7 @@ def returnImageWeight(jsonDoc):
         img = _decodeResize(img)
         imageType = _detectImageType(img)
 
-        if (imageType is True):
+        if (imageType == 'logo'):
             weightArray = logoModel.predict(np.expand_dims(img/255,0))
         else:
             weightArray = peopleModel.predict(np.expand_dims(img/255,0))     
