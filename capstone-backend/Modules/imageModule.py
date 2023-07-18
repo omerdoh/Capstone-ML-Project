@@ -21,3 +21,12 @@ step 4: return the pdf neatly to the route
 
 def imageModule(images):
     print(images)
+
+    #json = createJsonFromImage(images)
+
+
+    #json = aiFunction(json)
+
+    #pdf =  drawNewPdf(json)
+
+    #return {"stuff":"things", "pdf": pdf}

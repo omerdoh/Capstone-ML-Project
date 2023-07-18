@@ -112,7 +112,9 @@ export default class DroppableFile extends React.Component{
         
         if(this.state.images && this.state.images.length > 0){
             let formData = new FormData()
-            this.state.images.forEach(image => {
+
+            //formData.append("images", this.state.images)
+            this.state.images.forEach((image, i) => {
                 formData.append("images", image)
             })
             this.props.getImgs(formData)

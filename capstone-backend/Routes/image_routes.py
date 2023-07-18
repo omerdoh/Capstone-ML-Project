@@ -7,8 +7,13 @@ def image_routes(app):
 
     def img_upload():
 
-        files = request.files['images']
 
-        imageModule(files)
+        imageList = request.files.getlist("images")
+        imageArray = []
+
+        for image in imageList:
+            imageArray.append(image.read())
+
+        imageModule(imageArray)
 
         return "hello", 200
