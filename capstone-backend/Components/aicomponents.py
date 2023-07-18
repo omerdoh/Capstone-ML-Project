@@ -18,15 +18,18 @@ ai-response[modelScore,good or bad value, corresponds to logo or person]
 In current model, less than 0.5 means off brand, greater than 0.5 means on brand
 """
 def returnImageWeight(jsonDoc):
+
     response = []
     if(jsonDoc is None):
         raise ValueError("No jsonDoc was passed")
     img = None
 
     parseJson = json.loads(jsonDoc)
-    for index in parseJson:
+
+    for block in parseJson:
         
-        img = index["image"]
+        img = block["image"]
+
         if (img is None):
             raise ValueError("No or empty image was passed")
         
@@ -47,7 +50,8 @@ def returnImageWeight(jsonDoc):
             response = [weight,False,imageType]
         
         #_appendtoJson()
-        index['ai-response'] = response
+        block['ai-response'] = response
+
     return parseJson
 
 
