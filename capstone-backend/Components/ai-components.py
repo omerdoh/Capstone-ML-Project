@@ -23,29 +23,36 @@ def returnImageWeight(jsonDoc):
     if(jsonDoc is None):
         raise ValueError("No jsonDoc was passed")
     img = None
+
     parseJson = json.loads(jsonDoc)
     for index in parseJson:
-
+        
         img = index["image"]
         if (img is None):
             raise ValueError("No or empty image was passed")
         
-        resize = _decodeResize(img)
-        type = _detectImageType(resize)
+        img = _decodeResize(img)
+        imageType = _detectImageType(img)
 
-        if (type is True):
+        if (imageType is True):
             weightArray = logoModel.predict(np.expand_dims(img/255,0))
         else:
-            weightArray = peopleModel.predict(np.expand_dims(img/255,0))
-        
+            weightArray = peopleModel.predict(np.expand_dims(img/255,0))     
 
-    weight=weightArray[0][0]
-    #return array with weight and response
-    if(weight > 0.5):
-        response = [weight,True]
-    else:
-        response = [weight,False]
-    return response
+        weight=weightArray[0][0]
+
+        #return array with weight and response response[AI score, good/bad score, logo/person]
+        if(weight > 0.5):
+            response = [weight,True,imageType]
+        else:
+            response = [weight,False,imageType]
+        
+        #_appendtoJson()
+        index['AIResponse'] = response
+    return parseJson
+
+
+
 
 #detect if image is of logos or people
 def _detectImageType(img):
@@ -65,15 +72,27 @@ def _decodeResize(img):
     resize = tf.image.resize(img,(256,256))
     return resize
 
+def _appendToJson():
+
+    return
+
 """
-f = open('capstone-backend/Components/pdfComponent/testjson.json')
-myJson = json.load(f)
+file = open('capstone-backend/Components/pdfComponent/testjson.json')
+myJson = json.load(file)
 for brand in myJson:
+    
     img = brand["image"]
     resize = _decodeResize(img)
     type = _detectImageType(resize)
     #type is logo or people
+    imageType = 'logo'
     #send to which model
+    modelResponse = 0.6
     #response[weight,true/false]
+    response = [modelResponse,True,imageType]
+    #brand.append(response)
+    brand['airesponse'] = response
     #add to myJson
+    #img.append(response)
+print(myJson)
 """
