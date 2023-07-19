@@ -1,6 +1,10 @@
 from Components.pdfComponent.pdfProccesor import pdfProccesor
 from Components.pdfComponent.pdfDrawer import pdfDrawer
+<<<<<<< HEAD
 from Components.pdfComponent.reconstructPdf import reconstructPdf
+=======
+from Components.aicomponents import returnImageWeight
+>>>>>>> 1dd02bbc2e7127397fa724e5e45899224117064b
 
 def pdfModule(bytes):
 
@@ -14,6 +18,13 @@ def pdfModule(bytes):
 
     jsons = pdfProccesor(pdf_bytes)# this returns a json of all the images
 
+<<<<<<< HEAD
+=======
+    jsons["imageJson"] = returnImageWeight(jsons["imageJson"])
+
+    print(jsons["imageJson"])
+
+>>>>>>> 1dd02bbc2e7127397fa724e5e45899224117064b
     #Example json testjson.json
 
         # step 2.1: make an array of images
@@ -41,9 +52,13 @@ def pdfModule(bytes):
     # what images need to be drawn on
     # step 5: reconstruct the pdf based on the json file -shivam
     
+<<<<<<< HEAD
     bytesOfNewPdf = reconstructPdf(jsons["imageJson"])
     print(bytesOfNewPdf)
     # pdfDrawer(pdf_bytes, jsons["imageJson"])
+=======
+    #pdfDrawer(pdf_bytes, jsons["imageJson"])
+>>>>>>> 1dd02bbc2e7127397fa724e5e45899224117064b
     
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
     return pdf_bytes
