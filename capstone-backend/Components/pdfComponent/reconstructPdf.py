@@ -3,7 +3,12 @@ from PIL import Image
 from fpdf import FPDF
 import base64
 
-def reconstructPdf(bytes, json_data):
+def pdf_to_bytes(pdf_path):
+    with open(pdf_path, 'rb') as pdf_file:
+        pdf_bytes = pdf_file.read()
+    return pdf_bytes
+
+def reconstructPdf(json_data):
     # Sort the JSON data based on the "index" key
     sorted_json_data = sorted(json_data, key=lambda x: x['index'])
     # Create a new PDF object
@@ -83,6 +88,12 @@ def reconstructPdf(bytes, json_data):
                 pdf.set_font("Arial", style="")
                 pdf.cell(10, 10, f"{key}: {value}", ln=True)
             y_txt += 10
+
+    pdf_path = "../../savepdfs/AIResponse.pdf"
+    pdf.output(pdf_path)
+    pdf_bytes = pdf_to_bytes(pdf_path)
+    os.remove(pdf_path)
+    return pdf_bytes
 
 
 def is_image_format_supported(image_format):
