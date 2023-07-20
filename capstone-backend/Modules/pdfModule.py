@@ -10,6 +10,8 @@ def pdfModule(bytes):
 
     jsons["imageJson"] = returnImageWeight(jsons["imageJson"])
 
+    pdf_bytes = pdfDrawer(pdf_bytes, jsons["imageJson"])
+
     # step 4: calcuate average acc per image - computer
     # what images need to be drawn on
 

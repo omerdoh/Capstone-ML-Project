@@ -25,7 +25,7 @@ def getImgData(pdf): #this gets the transform of the image the actual image as w
         imgblocks = [b for b in blocks if b["type"] == 1]
         pageImgBlock.append(imgblocks)
 
-    for counter, img_blocks in enumerate(pageImgBlock, start=1):
+    for counter, img_blocks in enumerate(pageImgBlock, start=0):
 
         for images_in_blocks in img_blocks:
 
