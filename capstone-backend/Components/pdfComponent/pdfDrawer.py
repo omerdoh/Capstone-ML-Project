@@ -3,15 +3,25 @@ from io import BytesIO
 
 def pdfDrawer(pdf_bytes, json):
 
-    pdf = fitz.open("pdf", BytesIO(pdf_bytes))
+    pdf = fitz.open(stream = pdf_bytes, filetype = "pdf")
 
     for blocks in json:
 
-        if blocks["ai-response"][1] == False:
-            print(pdf[blocks["page"]])
-            pdf[blocks["page"]].draw_rect([500,500,500,500], color = (0, 0, 0), width = 100)
+        page = pdf[blocks["page"]]
 
-    return pdf.write()
+        if blocks["ai-response"][1] == False:
+
+            x = blocks["transform"][4] # X-coordinate of the top-left corner
+            y = blocks["transform"][5] # Y-coordinate of the top-left corner
+            w = blocks["transform"][0]  # Width of the rectangle
+            h = blocks["transform"][3]  # Height of the rectangle
+
+            page.draw_rect(fitz.Rect(x, y, x + w, y + h), color=(1, 0, 0), width=2)
+
+    pdf_bytes = pdf.write()
+    pdf.close()
+
+    return pdf_bytes
 
 
 

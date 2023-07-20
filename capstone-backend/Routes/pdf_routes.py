@@ -18,7 +18,7 @@ def pdf_routes(app):
         if file:
             content = file.read() # reads the file as bytes
 
-            pdfModule(content)
+           
 
             #---------------------Saving files not currently working with the changed to the pdf and image uploading----------------
 
@@ -28,7 +28,7 @@ def pdf_routes(app):
 
             #-----------------------------------------------------------------------------------------------------------------------
 
-            return content , 200    
+            return  pdfModule(content) , 200    
         
             '''
                 {

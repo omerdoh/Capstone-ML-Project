@@ -1,6 +1,5 @@
 from Components.ImageComponents.imageProccesor import imageProccesor
 from Components.aicomponents import returnImageWeight
-from Components.pdfComponent.reconstructPdf import reconstructPdf
 '''
 natdyl <3 forever 
 step 1: veify size = size matching
