@@ -7,7 +7,6 @@ def image_routes(app):
 
     def img_upload():
 
-
         imageList = request.files.getlist("images")
         imageArray = []
 

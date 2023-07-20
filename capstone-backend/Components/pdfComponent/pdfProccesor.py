@@ -10,7 +10,7 @@ def pdfProccesor(pdf_bytes):
 
     imageJson = getImgData(pdf)
     textJson = checkTextAllowed(pdf)
-    
+
     return {"imageJson":imageJson, "textJson": ""}
     
 def getImgData(pdf): #this gets the transform of the image the actual image as well as the page number and index of the image
@@ -33,7 +33,7 @@ def getImgData(pdf): #this gets the transform of the image the actual image as w
                 "index":indexCounter,
                 "page":counter,
                 "transform":images_in_blocks["transform"],
-                "image":base64.b64encode(images_in_blocks["image"]).decode('utf-8') # to use this you have to decode it utf-8
+                "image":base64.b64encode(images_in_blocks["image"]).decode('utf-8') # to use this you have to decode it utf-8"
             })
             indexCounter = indexCounter + 1
 

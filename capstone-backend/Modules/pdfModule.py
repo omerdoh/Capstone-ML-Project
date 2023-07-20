@@ -45,7 +45,7 @@ def pdfModule(bytes):
     # what images need to be drawn on
     # step 5: reconstruct the pdf based on the json file -shivam
     
-    #pdfDrawer(pdf_bytes, jsons["imageJson"])
+    #pdf_bytes = pdfDrawer(pdf_bytes, jsons["imageJson"])
     
     # step 6: send neat package back to the route to be sent to the frontend for proccesing - whoever
     return pdf_bytes
