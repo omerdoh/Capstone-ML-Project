@@ -3,6 +3,11 @@ from PIL import Image
 from fpdf import FPDF
 import base64
 
+def pdf_to_bytes(pdf_path):
+    with open(pdf_path, 'rb') as pdf_file:
+        pdf_bytes = pdf_file.read()
+    return pdf_bytes
+
 def reconstructPdf(json_data):
     # Sort the JSON data based on the "index" key
     sorted_json_data = sorted(json_data, key=lambda x: x['index'])
@@ -64,11 +69,6 @@ def reconstructPdf(json_data):
                 # Embed the image into the PDF
                 pdf.image(image_file, x=x, y=y_img, w=100, h=100)
 
-                print(data[index]["ai-response"][1])
-
-                if  data["ai-response"][1] == True:
-                    pdf.draw_rect([x, y_img, 100, 100], color = (255, 0, 0, 0.5), width = 1)
-
                 # Update the position for the next image
                 remaining_height = pdf.h - y_img - 100  # Calculate the remaining height after embedding the image
                 if has_next_data == True and remaining_height < 100:
@@ -88,7 +88,12 @@ def reconstructPdf(json_data):
                 pdf.set_font("Arial", style="")
                 pdf.cell(10, 10, f"{key}: {value}", ln=True)
             y_txt += 10
-    
+
+    pdf_path = "../../savepdfs/AIResponse.pdf"
+    pdf.output(pdf_path)
+    pdf_bytes = pdf_to_bytes(pdf_path)
+    os.remove(pdf_path)
+    return pdf_bytes
 
 
 def is_image_format_supported(image_format):
