@@ -16,7 +16,7 @@ def pdfDrawer(pdf_bytes, json):
             w = blocks["transform"][0]  # Width of the rectangle
             h = blocks["transform"][3]  # Height of the rectangle
 
-            page.draw_rect(fitz.Rect(x, y, x + w, y + h), color=(1, 0, 0), width=2)
+            page.draw_rect(fitz.Rect(x, y, x + w, y + h), color=(1, 0, 0), width=3)
 
     pdf_bytes = pdf.write()
     pdf.close()

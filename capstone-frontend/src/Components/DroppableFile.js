@@ -8,7 +8,7 @@ export default class DroppableFile extends React.Component{
         super(props)
 
         this.state = {
-            fileName:null,
+            fileName:"",
             files:[],
             images:[]
         }
@@ -71,17 +71,25 @@ export default class DroppableFile extends React.Component{
 
             let filteredFiles = []
             let filteredImages = []
+            let tempFileName = ""
 
             for (let i = 0; i < files.length; i++) {
-            
+
                 switch(files[i].type){
 
                     case "application/pdf":
                         filteredFiles.push(files[i])
+                        tempFileName = files[i].name
                         break;
                     case "image/jpeg":
                     case "image/png":
                         filteredImages.push(files[i])
+
+                        if(i === 0){
+                            tempFileName = files[i].name
+                        }else if(i === files.length - 1){
+                            tempFileName = tempFileName + "..." + files[i].name
+                        }
                         break;
                     default:
                         console.log("the file is not a pdf or image")          
@@ -91,7 +99,8 @@ export default class DroppableFile extends React.Component{
 
             this.setState({
                 files:filteredFiles,
-                images:filteredImages
+                images:filteredImages,
+                fileName:tempFileName
             })
         }else{
             console.log("No File");
@@ -124,7 +133,8 @@ export default class DroppableFile extends React.Component{
 
         this.setState({
             files:null,
-            images:null
+            images:null,
+            fileName:""
         })
     }
 
@@ -145,13 +155,10 @@ export default class DroppableFile extends React.Component{
                     </div>
 
                     <div className="fileText">
-                       {this.state.fileName == null ? "No File Selected" : this.state.fileName}
 
-                       <div className="removeFile">
+                       {this.state.fileName == "" ? "No File Selected" : this.state.fileName}
 
-                            {/* <label htmlFor="file-remove" className="uploadText">X</label> */}
-                            <input type="button" id="file-remove" onClick={this.removeFile} style={{ display: "none" }}/>
-                        </div>
+                        <input className="removeButton" type="button" id="file-remove" onClick={() => this.removeFile()} value="X"></input>
                     </div>      
                 </div>
                 <div className="button">

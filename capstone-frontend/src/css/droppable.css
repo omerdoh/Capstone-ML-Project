@@ -24,19 +24,12 @@
 }
 .fileText{
     display: flex;
+    justify-content: space-between;
     align-items: center;
     border-top: 1px dashed rgb(135, 129, 129);
     height: 1.5rem;
 }
 
-.removeFile{
-    width: 5%;
-    float: right;
-}
-
-.buttonUpload{
-    border: none;
-}
 .uploadText{
     cursor: pointer;
 
@@ -47,4 +40,13 @@
 .button{
     display: flex;
     padding-top: 5px;
+}
+
+.removeButton{
+    background: none;
+    border: none;
+    color: white;
+}
+.removeButton:hover{
+    color: #bebebe;
 }
