@@ -1,5 +1,6 @@
 from Components.ImageComponents.imageProccesor import imageProccesor
 from Components.aicomponents import returnImageWeight
+from Components.pdfComponent.reconstructPdf import create_pdf
 '''
 natdyl <3 forever 
 step 1: veify size = size matching
@@ -24,6 +25,6 @@ def imageModule(images):
 
     json = returnImageWeight(json)#get the weights
 
-    #pdf = reconstructPdf(json)
+    pdf = create_pdf(json)
 
-    #json = createJsonFromImage(images)
+    return pdf

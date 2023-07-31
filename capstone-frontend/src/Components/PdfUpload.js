@@ -43,11 +43,11 @@ export default class PdfUpload extends React.Component {
             responseType:'arraybuffer',
             data:images
         }).then(response => {
-
-
+            
             console.log(response)
-            //let blob = new Blob([response.data], {type:"application/pdf"})
-            //this.state.callback(blob)    
+
+            let blob = new Blob([response.data], {type:"application/pdf"})
+            this.state.callback(blob)        
         })
     }
 

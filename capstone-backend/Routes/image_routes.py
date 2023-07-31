@@ -13,6 +13,4 @@ def image_routes(app):
         for image in imageList:
             imageArray.append(image.read())
 
-        imageModule(imageArray)
-
-        return "hello", 200
+        return  imageModule(imageArray), 200
